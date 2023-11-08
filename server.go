@@ -7,7 +7,7 @@ import (
 
 	"github.com/shirou/gopsutil/cpu"
 	"github.com/shirou/gopsutil/mem"
-	"github.com/tanya.lyubimaya/mockConfigStore/server"
+	"github.com/tanya.lyubimaya/grpc-exporter/server"
 )
 
 type MetricsServiceServer struct {

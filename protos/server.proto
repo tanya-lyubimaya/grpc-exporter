@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-package mockConfigStore.metrics;
-option go_package = "github.com/tanya.lyubimaya/mockConfigStore/server";
+package grpc_exporter.metrics;
+option go_package = "github.com/tanya.lyubimaya/grpc-exporter/server";
 
 message MetricsRequest {
   // Empty message for metrics request

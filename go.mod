@@ -1,4 +1,4 @@
-module github.com/tanya.lyubimaya/mockConfigStore
+module github.com/tanya.lyubimaya/grpc-exporter
 
 go 1.20
 

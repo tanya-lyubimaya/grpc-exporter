@@ -4,7 +4,7 @@ import (
 	"log"
 	"net"
 
-	"github.com/tanya.lyubimaya/mockConfigStore/server"
+	"github.com/tanya.lyubimaya/grpc-exporter/server"
 	"google.golang.org/grpc"
 )
 

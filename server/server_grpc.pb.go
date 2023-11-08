@@ -35,7 +35,7 @@ func NewMetricsServiceClient(cc grpc.ClientConnInterface) MetricsServiceClient {
 
 func (c *metricsServiceClient) CollectMetrics(ctx context.Context, in *MetricsRequest, opts ...grpc.CallOption) (*MetricsResponse, error) {
 	out := new(MetricsResponse)
-	err := c.cc.Invoke(ctx, "/mockConfigStore.metrics.MetricsService/CollectMetrics", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/grpc_exporter.metrics.MetricsService/CollectMetrics", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -80,7 +80,7 @@ func _MetricsService_CollectMetrics_Handler(srv interface{}, ctx context.Context
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/mockConfigStore.metrics.MetricsService/CollectMetrics",
+		FullMethod: "/grpc_exporter.metrics.MetricsService/CollectMetrics",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MetricsServiceServer).CollectMetrics(ctx, req.(*MetricsRequest))
@@ -92,7 +92,7 @@ func _MetricsService_CollectMetrics_Handler(srv interface{}, ctx context.Context
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var MetricsService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "mockConfigStore.metrics.MetricsService",
+	ServiceName: "grpc_exporter.metrics.MetricsService",
 	HandlerType: (*MetricsServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
