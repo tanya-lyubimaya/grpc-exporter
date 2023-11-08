@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package mockConfigStore.metrics;
+option go_package = "github.com/tanya.lyubimaya/mockConfigStore/server";
+
+message MetricsRequest {
+  // Empty message for metrics request
+}
+
+message MetricsResponse {
+  Metric cpu_usage = 1;
+  Metric memory_usage = 2;
+  Metric uptime = 3;
+}
+
+message Metric {
+  string name = 1;
+  string help = 2;
+  double value = 3;
+}
+
+service MetricsService {
+  rpc CollectMetrics(MetricsRequest) returns (MetricsResponse) {}
+}
