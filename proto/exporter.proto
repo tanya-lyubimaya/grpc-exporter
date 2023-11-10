@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+package grpc_exporter.exporter;
+option go_package = "github.com/tanya.lyubimaya/grpc_exporter/exporter/server";
+
+message MetricsResponse {
+  Metric cpu_usage = 1;
+  Metric memory_usage = 2;
+  Metric uptime = 3;
+}
+
+message Metric {
+  string name = 1;
+  string help = 2;
+  double value = 3;
+}
+
+service Exporter {
+  rpc CollectMetrics(google.protobuf.Empty) returns (MetricsResponse) {}
+  rpc StreamMetrics(google.protobuf.Empty) returns (stream MetricsResponse) {}
+}

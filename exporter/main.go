@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net"
 
@@ -15,9 +16,10 @@ func main() {
 	}
 
 	var opts []grpc.ServerOption
-	ms := NewServer()
+	s := NewServer()
 	grpcServer := grpc.NewServer(opts...)
-	server.RegisterMetricsServiceServer(grpcServer, ms)
+	server.RegisterExporterServer(grpcServer, s)
+	fmt.Println("listening on localhost:8080")
 	done := make(chan struct{})
 	go func() {
 		if err = grpcServer.Serve(lis); err != nil {

@@ -6,3 +6,5 @@ build
 .golangci.yml
 checkstyle.xml
 *.db
+/exporter/server/*
+/vmagent/exporter_*

@@ -8,10 +8,11 @@ import (
 	"github.com/shirou/gopsutil/cpu"
 	"github.com/shirou/gopsutil/mem"
 	"github.com/tanya.lyubimaya/grpc-exporter/server"
+	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 type MetricsServiceServer struct {
-	server.UnimplementedMetricsServiceServer
+	server.UnimplementedExporterServer
 	startTime time.Time
 }
 
@@ -21,7 +22,7 @@ func NewServer() *MetricsServiceServer {
 	}
 }
 
-func (s *MetricsServiceServer) CollectMetrics(context.Context, *server.MetricsRequest) (*server.MetricsResponse, error) {
+func (s *MetricsServiceServer) CollectMetrics(context.Context, *emptypb.Empty) (*server.MetricsResponse, error) {
 	cpuUsage, err := getCurrentCPUUsage()
 	if err != nil {
 		fmt.Printf("error getting CPU usage: %v\n", err)
@@ -39,6 +40,32 @@ func (s *MetricsServiceServer) CollectMetrics(context.Context, *server.MetricsRe
 	}
 
 	return response, nil
+}
+
+func (s *MetricsServiceServer) StreamMetrics(_ *emptypb.Empty, stream server.Exporter_StreamMetricsServer) error {
+	for {
+		cpuUsage, err := getCurrentCPUUsage()
+		if err != nil {
+			return err
+		}
+		memoryUsage, err := getCurrentMemoryUsage()
+		if err != nil {
+			return err
+		}
+		uptime := calculateUptime(s.startTime)
+
+		response := &server.MetricsResponse{
+			CpuUsage:    &cpuUsage,
+			MemoryUsage: &memoryUsage,
+			Uptime:      &uptime,
+		}
+
+		if err := stream.Send(response); err != nil {
+			return err
+		}
+
+		time.Sleep(5 * time.Second)
+	}
 }
 
 func getCurrentCPUUsage() (server.Metric, error) {
