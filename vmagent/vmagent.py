@@ -48,7 +48,8 @@ if __name__ == '__main__':
     mode = os.environ['MODE']
     if mode == 'STREAM':
         run_server_streaming_client()
-    if mode == 'UNARY':
+    elif mode == 'UNARY':
         call_collect_metrics()
-    print("unknown mode provided")
+    else:
+        print("unknown mode provided")
 
