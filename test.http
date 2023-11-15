@@ -1,2 +1,2 @@
 ### COLLECT METRICS FROM EXPORTER
-GRPC localhost:8080/grpc_exporter.exporter.Exporter/CollectMetrics
+GRPC localhost:50051/grpc_exporter.exporter.Exporter/CollectMetrics

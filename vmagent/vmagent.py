@@ -11,7 +11,7 @@ sys.path.append("server")
 
 
 def collect_metrics(request, context):
-    with grpc.insecure_channel('localhost:8080') as channel:
+    with grpc.insecure_channel('localhost:50051') as channel:
         stub = exporter_pb2_grpc.ExporterStub(channel)
         response = stub.CollectMetrics(request, context)
         print("[UNARY] received metrics response:", response)
@@ -30,7 +30,7 @@ def call_collect_metrics():
 
 
 def run_server_streaming_client():
-    channel = grpc.insecure_channel('localhost:8080')  # Replace with your server address
+    channel = grpc.insecure_channel('localhost:50051')  # Replace with your server address
     stub = exporter_pb2_grpc.ExporterStub(channel)
 
     request = google.protobuf.empty_pb2.Empty()
